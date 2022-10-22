@@ -1,4 +1,5 @@
 const { DataTypes }  = require('sequelize')
+const Users = require('./users.models')
 const db = require('../utils/database')
 
 const Participants = db.define('Participants',{
@@ -15,7 +16,11 @@ const Participants = db.define('Participants',{
     userId: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'user_id'
+        field: 'user_id',
+        references: { //? Llave foranea de Users
+            key: 'id',
+            model: Users
+        }
     }
 })
 

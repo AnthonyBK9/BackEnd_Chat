@@ -34,20 +34,16 @@ const Users = db.define('users',{
         allowNull: false,
         unique: true,
     },
+    profile_image:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     birthday:{
         type: DataTypes.DATEONLY,
         allowNull: false
     },
     gender:{
         type: DataTypes.STRING
-    },
-    role:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'normal'
-    },
-    country:{
-        type: DataTypes.STRING,
     },
     status:{
         type: DataTypes.STRING,
