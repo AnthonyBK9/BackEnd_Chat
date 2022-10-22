@@ -50,7 +50,7 @@ const confirm = (req, res) => {
 }
 
 const forgotPassword = (req, res) => {
-    const email = req.body.email
+    const { email } = req.body
     if (!email) return res.status(400).json({msg: 'Missing Data'})
     getUserByEmail(email) //? Se envie el email para validar si existe en ls BD
         .then(data => {
@@ -69,23 +69,19 @@ const forgotPassword = (req, res) => {
 }
 
 const newPassword = (req, res) => {
-    
-    try {
-        const password = req.body.password
-        const token = req.params.token
-        if (!password) res.status(400).json({msg: 'Missing password'})
-            getUserByToken(token) //? Se envia el Token para cambio de contraseña
-                .then(data => {
-                    if (data) {
-                        res.status(200).json({msg: 'Password actualizado correctamente'})
-                        resetPasswordByUser(token, password)
-                    } else {
-                        res.status(400).json({msg: 'Token Invalido'})
-                    }
-                })
-    } catch (error) {
-        return res.status(400).json({msg: error.message})
-    }
+    const { password } = req.body
+    const token = req.params.token
+    if(!password) return res.status(400).json({msg: 'Missing Data'})
+        getUserByToken(token) //? Se envia el Token para cambio de contraseña
+            .then(data => {
+                if (data) {
+                    res.status(200).json({msg: 'Password actualizado correctamente'})
+                    resetPasswordByUser(token, password)
+                } else {
+                    res.status(400).json({msg: 'Token Invalido'})
+                }
+            })
+   
     
 }
 
