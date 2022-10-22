@@ -21,4 +21,9 @@ Orden
 5. modelos
 6. controladores
 7. servicios
+<<<<<<< HEAD
 8. 
+=======
+8. rutas
+9. test
+>>>>>>> 1e69ee003268bcd631899945b4282fe8b6f9dc54
