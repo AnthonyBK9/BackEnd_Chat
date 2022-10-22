@@ -34,13 +34,12 @@ const Users = db.define('users',{
         allowNull: false,
         unique: true,
     },
-    profile_image:{
+    profileImage:{
         type: DataTypes.STRING,
-        allowNull: false,
+        field: 'profile_image'
     },
     birthday:{
-        type: DataTypes.DATEONLY,
-        allowNull: false
+        type: DataTypes.DATEONLY
     },
     gender:{
         type: DataTypes.STRING
@@ -49,7 +48,7 @@ const Users = db.define('users',{
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'active'
-    },
+    }, 
     token: {
         type: DataTypes.STRING,
         allowNull: false,

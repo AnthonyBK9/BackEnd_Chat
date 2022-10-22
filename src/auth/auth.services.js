@@ -9,6 +9,7 @@ const login = (req, res) => {
     if (!email || !password) return res.status(400).json({msg: 'Missing Data'})
     getUserByEmail(email)
         .then(data => {
+            // return console.log(data.dataValues.isVerified)
             if (!data.dataValues.isVerified) {
                 res.status(400).json({msg: 'Usuario no confirmado, favor de validar su cuenta'})
             } else {
@@ -37,7 +38,7 @@ const confirm = (req, res) => {
     getUserByToken(token) //? Realiza una busque por el token del usuario
         .then(data => {
             if(data){
-                res.status(200).json('Usuario confirmado correctamente') 
+                res.status(200).json({msg: 'Usuario confirmado correctamente'}) 
                 confirmByUser(token) //? Si es correcto se actualiza isVerified a true
             } else {
                 res.status(400).json({msg: 'Token no valido'}) //? En caso de no encontrarlo lanza un error de token no valido
@@ -68,18 +69,24 @@ const forgotPassword = (req, res) => {
 }
 
 const newPassword = (req, res) => {
-    const password = req.body.password
-    const token = req.params.token
-    if (!password) res.status(400).json({msg: 'Missing password'})
-        getUserByToken(token) //? Se envia el Token para cambio de contraseña
-            .then(data => {
-                if (data) {
-                    res.status(200).json({msg: 'Password actualizado correctamente'})
-                    resetPasswordByUser(token, password)
-                } else {
-                    res.status(400).json({msg: 'Token Invalido'})
-                }
-            })
+    
+    try {
+        const password = req.body.password
+        const token = req.params.token
+        if (!password) res.status(400).json({msg: 'Missing password'})
+            getUserByToken(token) //? Se envia el Token para cambio de contraseña
+                .then(data => {
+                    if (data) {
+                        res.status(200).json({msg: 'Password actualizado correctamente'})
+                        resetPasswordByUser(token, password)
+                    } else {
+                        res.status(400).json({msg: 'Token Invalido'})
+                    }
+                })
+    } catch (error) {
+        return res.status(400).json({msg: error.message})
+    }
+    
 }
 
 module.exports = {

@@ -30,6 +30,7 @@ const createUser = async (data) => {
         email: data.email,
         password: hashPassword(data.password),
         phone: data.phone,
+        profileImage: data.profileImage,
         birthday: data.birthday,
         gender: data.gender,
         country: data.country,
