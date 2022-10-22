@@ -8,10 +8,9 @@
 -Use de Json Web Token JWT
 
 - Rutas de login y creacion de usuario (register)
+- Restablecimiento de contraseña y confirmación en cuentas de usuarios
 - Herramienta para publicar imagenes de perfil
 - CRUD de usuario con autenticación y manejo de permisos
-- /users/:id DELETE, PUT
-
 
 Orden
 1. app.js
@@ -21,9 +20,29 @@ Orden
 5. modelos
 6. controladores
 7. servicios
-<<<<<<< HEAD
-8. 
-=======
-8. rutas
-9. test
->>>>>>> 1e69ee003268bcd631899945b4282fe8b6f9dc54
+
+Rutas 
+* Ruta raíz
+/api/v1/
+
+# Users
+ /users
+ /users/me
+ /users/:id
+
+# auth
+ /auth/register
+ /auth/user-confirm/:token
+ /auth/login
+ /auth/forgot-password
+ /auth/forgot-password/:token
+
+# Convesations
+ /conversations
+ /conversations/:conversation_id
+ /conversations/:conversation_id/messages/:message_id
+
+# Participants
+ /conversations/:conversation_id/participants
+ /conversations/:conversation_id/participants/:participant_id
+
