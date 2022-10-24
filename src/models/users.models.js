@@ -36,13 +36,10 @@ const Users = db.define('users',{
     },
     profileImage:{
         type: DataTypes.STRING,
+        validate: {
+            isUrl: true,
+        },
         field: 'profile_image'
-    },
-    birthday:{
-        type: DataTypes.DATEONLY
-    },
-    gender:{
-        type: DataTypes.STRING
     },
     status:{
         type: DataTypes.STRING,

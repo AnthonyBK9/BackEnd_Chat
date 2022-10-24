@@ -25,17 +25,23 @@ const getUserById = (req, res) => {
 const registerUser = (req, res) => {
     const { firstName, lastName, email, password, phone, birthday , gender, country } = req.body;    
     if (firstName && lastName && email && password && phone && birthday ) {
-        //? Ejecutamos el controller
-        userControllers.createUser({ firstName, lastName, email, password, phone, birthday , gender, country })
-            .then( data => {
-                res.status(201).json(data)
+        userControllers.getUserByEmail(email)
+            .then(data =>{
+                if (data) {
+                   return res.status(400).json({msg: 'Usuario ya registrado'})
+                } else {
+                    userControllers.createUser({ firstName, lastName, email, password, phone, birthday , gender, country })
+                    .then( data => {
+                        res.status(201).json({msg: 'Usuario registrado Correctamente', data})
+                    })
+                    .catch( err => {
+                        res.status(400).json({msg: err.message});
+                    })
+                }
             })
-            .catch( err => {
-                res.status(400).json({msg: err.message});
-            })
-    } else {
+    }   else {
         //? Error cuando no mandan todos lo datos necesarios para crear un usuario
-        res.status(400).json({msg: 'All fields must be completed', fields: {
+        res.status(400).json({msg: 'Favor de completar los siguiente campos', fields: {
             firstName: 'String',
             lastName: 'String',
             email: 'example@example.com',
@@ -53,9 +59,9 @@ const patchUser = (req, res) => {
     userControllers.updateUser(id,  { firstName, lastName, phone , gender, country })
         .then(data => {
             if (data[0]) {
-                res.status(200).json({msg: `User whit the id: ${id}, edited succesfully!`})
+                res.status(200).json({msg: `Usuario con el id:${id}, editado correctamente`})
             } else {
-                res.status(400).json({msg: 'Invalid ID'})
+                res.status(400).json({msg: 'ID Invalido'})
             }
         })
         .catch( err => { 
@@ -70,7 +76,7 @@ const deleteUser = (req, res) => {
             if(data) {
                 res.status(204).json()
             } else {
-                res.status(400).json({msg: 'Invalid ID'})
+                res.status(400).json({msg: 'ID Invalido'})
             }
         })
         .catch( err => {
@@ -96,7 +102,7 @@ const patchMyUser = (req, res) => {
     const { firstName, lastName, phone, country} = req.body;
     userControllers.updateUser(id, { firstName, lastName, phone, country})
         .then(data => {
-            res.status(200).json({msg: `Your user was edited succesfully!`})
+            res.status(200).json({msg: `Usuario editado correctamente`})
         })
         .catch(err => {
             res.status(400).json({msg: err.message})
@@ -111,7 +117,7 @@ const deleteMyUser = (req, res) => {
     const id = req.params.id;
     userControllers.deleteUser(id, {status: 'inactive'}) //? Cambiar el status a inactive, al momento de eliminar un usuario
         .then(() => {
-            res.status(200).json({msg: `Your user was deleted succesfully!`})
+            res.status(200).json({msg: `Usuario eliminado Correctamente`})
         })
         .catch(err => {
             res.status(400).json({msg: err.message})

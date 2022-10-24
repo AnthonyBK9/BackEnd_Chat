@@ -6,7 +6,7 @@ const { getUserByEmail, getUserByToken } = require('../users/users.controllers')
 
 const login = (req, res) => {
     const { email, password } = req.body
-    if (!email || !password) return res.status(400).json({msg: 'Missing Data'})
+    if (!email || !password) return res.status(400).json({msg: 'Datos vacios'})
     
     //? Se realiza una consulta por medio del email, para verificar si existe el usuario
     getUserByEmail(email)
@@ -24,9 +24,9 @@ const login = (req, res) => {
                                     email: response.email,
                                     role: response.role
                                 }, jwtSecret, {  expiresIn: '7d', })
-                                res.status(200).json({msg: 'Correct Credentilas', token})
+                                res.status(200).json({msg: 'Credenciales Correctas', token})
                             }else {
-                                res.status(401).json({msg: 'Invalid Credentials'})
+                                res.status(401).json({msg: 'Credenciales Invalidas'})
                             }
                         })
                         .catch(err => {
@@ -64,7 +64,7 @@ const confirm = (req, res) => {
 
 const forgotPassword = (req, res) => {
     const { email } = req.body
-    if (!email) return res.status(400).json({msg: 'Missing Data'})
+    if (!email) return res.status(400).json({msg: 'Datos vacios'})
     
     //? Se realiza una consulta por medio del email, para verificar si existe el usuario
     getUserByEmail(email) 
