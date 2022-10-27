@@ -5,6 +5,7 @@ const { Server } = require('socket.io');
 //* Routes
 const userRouter = require('./users/users.router');
 const authRouter = require('./auth/auth.router');
+const conversationRouter = require('./conversations/conversations.router')
 //? Files
 const { port } = require('./config');
 const initModels = require('./models/initModels')
@@ -37,6 +38,7 @@ io.on('connection', (socket) => {
 
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/concesartions', conversationRouter)
 
 
 httpServer.listen(port, () => {
