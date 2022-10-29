@@ -21,6 +21,7 @@ const login = (req, res) => {
                             if (response) {
                                 const token = jwt.sign({ //? Generamos el token con la siguiente información id, email y role
                                     id: response.id,
+                                    firstName: response.firstName,
                                     email: response.email,
                                     role: response.role
                                 }, jwtSecret, {  expiresIn: '7d', })

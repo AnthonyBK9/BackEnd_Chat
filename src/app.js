@@ -1,19 +1,19 @@
 //? Dependencies
-const express = require('express');
-const { createServer } = require('http');
-const { Server } = require('socket.io');
+const express = require('express')
+const { createServer } = require('http')
+const { Server } = require('socket.io')
 //* Routes
-const userRouter = require('./users/users.router');
-const authRouter = require('./auth/auth.router');
+const userRouter = require('./users/users.router')
+const authRouter = require('./auth/auth.router')
 const conversationRouter = require('./conversations/conversations.router')
 //? Files
-const { port } = require('./config');
+const { port } = require('./config')
 const initModels = require('./models/initModels')
-const db = require('./utils/database');
+const db = require('./utils/database')
 
 //? Initial Configs
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
 db.authenticate() // ? Authenticate database credentials
     .then(() => console.log('Database authenticated'))
@@ -42,5 +42,5 @@ app.use('/api/v1/concesartions', conversationRouter)
 
 
 httpServer.listen(port, () => {
-    console.log(`Server started at port: ${port}`);
+    console.log(`Server started at port: ${port}`)
 });

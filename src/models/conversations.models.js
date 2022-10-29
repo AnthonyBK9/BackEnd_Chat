@@ -4,8 +4,8 @@ const Users = require('./users.models')
 
 const Conversations = db.define('conversations',{
         id: {
-            primaryKey: true,
             type: DataTypes.UUID,
+            primaryKey: true,
             allowNull: false
         },
         title: {

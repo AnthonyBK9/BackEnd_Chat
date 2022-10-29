@@ -22,7 +22,7 @@ const Participants = db.define('Participants',{
         type: DataTypes.UUID,
         allowNull: false,
         field: 'user_id',
-        references: { //? Llave foranea de Users
+        references: { 
             key: 'id',
             model: Users
         }
